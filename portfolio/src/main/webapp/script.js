@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+var numDescriptor = 0;
+var timeout = setTimeout(console.log("Hello"), 1);
+
 /**
  * Adds a random greeting to the page.
  */
@@ -36,4 +39,35 @@ function addRandomFact() {
 
     const factContainer = document.getElementById('fact-container');
     factContainer.innerText = fact;
+}
+
+function setRandomStatus() {
+    const descriptors = [" hiker", " coder", " speaker"];
+    const colors = ["red", "green", "blue"];
+    const fonts = ["Cambria", "consolas", "Arial"];
+    numDescriptor++;
+    if(numDescriptor>=descriptors.length){
+        numDescriptor = 0;
+    }
+
+    const descriptorContainer = document.getElementById('descriptorContainer');
+    descriptorContainer.innerText = descriptors[numDescriptor];
+    descriptorContainer.style.color = colors[numDescriptor];
+    // descriptorContainer.style.fontFamily = fonts[numDescriptor];
+    timeout = setTimeout(setRandomStatus, 1500);
+}
+
+function setStatus(status, color){
+    descriptorContainer.innerText = status;
+    descriptorContainer.style.color = color;
+    // descriptorContainer.style.fontFamily = "'Times New Roman', Times, serif";
+}
+
+/*
+Stops the carousel of descriptors and locks from reactivating for 1s
+*/
+function stopStatus() {
+    clearTimeout(timeout);
+    const descriptorContainer = document.getElementById('descriptorContainer');
+    descriptorContainer.innerText = "";
 }

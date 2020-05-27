@@ -2,18 +2,46 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home_style.css">
     <script src="script.js"></script>
   </head>
-  <body style="background-color:powderblue;">
+  <body style="background-color:white;">
     <div id="content">
-      <h1>Gus's Portfolio</h1>
-      <p title="Glad you found me">This is my portfolio. Here is a picture of me!</p>
-      <img src="/images/me.jpeg" alt="A photo of me"/>
-      <p>Click here to learn a random fact about me:</p>
-      <button onclick="addRandomFact()">Hello</button>
-      <p id="fact-container"></p>
+        <h1>Gus's Portfolio</h1>
+        <div style="height:150px;"></div>
+        <div onmouseenter="setRandomStatus()" onmouseleave="stopStatus()">
+            <img src="/images/me.jpeg" id="profile">
+            <h2>
+                <span>I'm Gus and I am a</span>
+                <span  id="descriptorContainer"></span>
+            </h2>
+        </div>
+        <div>
+            <div style="text-align: center; overflow: hidden;">
+                <div style="display: inline-block; overflow: hidden;">
+                    <a class="icon" href="aboutme.html" onmouseover="setStatus(' Person', 'darkgreen')" onmouseleave="stopStatus()">
+                        <img src="/images/aboutme.png">
+                        <span>About Me</span>
+                    </a>
+                    <a class="icon" href="coding.html" onmouseover="setStatus(' Coder', 'red')" onmouseleave="stopStatus()">
+                        <img src="/images/coding.png">
+                        <span>Coding</span>
+                    </a>
+                </div>
+                 <div style="display: inline-block; overflow: hidden;">
+                    <a class="icon" href="hiking.html" onmouseover="setStatus(' Hiker', 'green')" onmouseleave="stopStatus()">
+                        <img src="/images/hiking.png">
+                        <span>Hiking</span>
+                    </a>
+                    <a class="icon" href="sports.html" onmouseover="setStatus('n Athlete', 'blue')" onmouseleave="stopStatus()">
+                        <img src="/images/skiing.png">
+                        <span>Sports</span>
+                    </a>
+                 </div>
+            </div>
+        </div>
     </div>
   </body>
 </html>
