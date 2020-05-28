@@ -42,9 +42,8 @@ function addRandomFact() {
 }
 
 function setRandomStatus() {
-    const descriptors = [" hiker", " coder", " speaker"];
-    const colors = ["red", "green", "blue"];
-    const fonts = ["Cambria", "consolas", "Arial"];
+    const descriptors = ["Person","Hiker", "Coder", "Athlete"];
+    const colors = ["darkgreen","red", "green", "blue"];
     numDescriptor++;
     if(numDescriptor>=descriptors.length){
         numDescriptor = 0;
@@ -53,7 +52,6 @@ function setRandomStatus() {
     const descriptorContainer = document.getElementById('descriptorContainer');
     descriptorContainer.innerText = descriptors[numDescriptor];
     descriptorContainer.style.color = colors[numDescriptor];
-    // descriptorContainer.style.fontFamily = fonts[numDescriptor];
     timeout = setTimeout(setRandomStatus, 1500);
 }
 
