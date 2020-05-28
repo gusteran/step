@@ -1,0 +1,41 @@
+body, html {
+    background:powderblue;
+    font-family: 'Times New Roman', Times, serif
+}
+
+.content {
+    display: inline-block;
+    background-color: red;
+    width: fit-content;
+    text-align: left;
+}
+
+h1 {
+    background-color: rgba(250, 250, 210, 0.9);
+    width: fit-content;
+    min-width: 10vw;
+    margin: 48px 10vw;
+    padding: 10px 10px;
+    font-size: 48px;
+}
+
+p {
+    background-color: pink;
+    padding: 2px 2px;
+    min-width: 20vw;
+    margin: 24px 5vw;
+    font-size: 24px;
+    text-align: left;
+}
+
+.icon img{
+    width:fit-content;
+    margin: 30px 30px;
+    padding: 20px 20px;
+    border: 20px 20px;
+}
+.icon {
+    background-color: powderblue;
+    float: right;
+    width:min-content;
+}
