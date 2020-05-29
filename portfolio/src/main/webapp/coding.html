@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8">
     <title>My Coding</title>
-    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <link rel="stylesheet" href="coding.css">
   </head>
   <body style="background-color:black;">
@@ -15,14 +14,19 @@
     </span>
     <div>
         <h2>This is the worst code I have ever written</h2>
+        <p>I keep this around as a reminder of how quickly poor coding
+            practices can spiral out of control (especially when tired). Surprisingly,
+            it actually did its job of animating an arrow navigating through a hospital kiosk
+            even cleanly across floors.
+        </p>
         <pre class="code">
-            <code class="prettyprint lang-java">
-    /**
-   * TODO this is the worst method I have ever written. As Tim put it
-   *
-   * @param path
-   */
-  public void playPath(ArrayList<HospitalNode> path) {
+            <code>
+/**
+* TODO this is the worst method I have ever written
+*
+* @param path
+*/
+public void playPath(ArrayList<HospitalNode> path) {
     shape.setVisible(false);
     //    Circle person = new Circle(0, 0, 10);
     ArrayList<PathElement> edges = PathFinding.animation(path);
@@ -148,7 +152,7 @@
           }
         };
     new Timer().schedule(task, timePassed + leaveAnimationTime / 2);
-  }
+}
             </code>
         </pre>
     </div>
