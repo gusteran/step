@@ -1,5 +1,6 @@
 html, body {
     background-color:azure;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 #content {
@@ -63,6 +64,37 @@ p {
     font-size: 16px;
 }
 
-#greeting-container {
-  margin-top: 20px;
+button {
+    margin: 15px;
+    padding: 15px;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: white;
 }
+
+.footer {
+    text-align: center;
+    position: fixed;
+    bottom:0;
+    left:0;
+    width:100vw;
+    color: black;
+    padding: 15px 15px;
+    font-size: 24px;
+}
+
+.animateText {
+    animation-name: textscroll;
+    animation-duration: 1s;
+    display: inline-flex;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: max-content;
+    /* background-color: pink; */
+}
+
+@keyframes textscroll{
+    from{width: 0px;}
+    to{width: 100%;};

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My Coding</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="comment.js"></script>
+  </head>
+  <body onload="fetchComments()" >
+      <div style="height: 10vh;"></div>
+      <form action="/data" method="POST" >
+          <h2>Leave your comment here</h2>
+          <input name="comment" type="text"  autofocus size="50">
+          <br>
+          <input type="submit">
+      </form>
+      <div>
+          <h2 id="commentListContainer"></h2>
+      </div>
+  </body>
+</html>
