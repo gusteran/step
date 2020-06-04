@@ -19,10 +19,24 @@ function addComment() {
     commentContainer.value = "";
 }
 
-function fetchComments() {
-	fetch('/data').then(response => response.json()).then((comments) => {
-		console.log("Comments are: "+comments);
+function fetchComments(numComments) {
+    document.getElementById('commentListContainer').innerHTML = "";
+	fetch('/comment').then(response => response.json()).then((comments) => {
 
-		document.getElementById('commentListContainer').innerText = comments;
+        for(i in comments){
+            if(i < numComments){
+                displayComment(comments[i]);
+            }
+        }
 	});
+}
+
+function deleteComments() {
+    fetch("/delete-data", {method: "post"});
+    fetchComments(10);
+}
+
+function displayComment(comment){
+		document.getElementById('commentListContainer').innerHTML += 
+            "<div class='comment'><span>"+comment.date+"</span><h3>"+comment.name+"</h3><p>"+comment.text+"</p></div>";
 }

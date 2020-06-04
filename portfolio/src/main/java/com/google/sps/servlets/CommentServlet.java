@@ -14,10 +14,12 @@
 
 package com.google.sps.servlets;
 
+import com.google.sps.data.Comment;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import java.io.PrintWriter;
 import com.google.gson.Gson;
@@ -27,45 +29,75 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
+@WebServlet({"/comment", "/delete-data"}
+)
+public class CommentServlet extends HttpServlet {
 
-    private ArrayList<String> comments;
+    private ArrayList<Comment> comments;
     private Gson gson = new Gson();
 
     @Override
     public void init(){
         comments = new ArrayList<>();
-        comments.add("Example Comment");
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         Query query = new Query("Comment");//.addSort("timestamp", SortDirection.DESCENDING);
         PreparedQuery results = datastore.prepare(query);
         for (Entity entity : results.asIterable()) {
-            comments.add(entity.getProperty("comment").toString());
+            Comment comment = new Comment(entity.getProperty("commentName").toString(),
+                entity.getProperty("commentText").toString(),
+                (Date)entity.getProperty("commentDate"));
+            comments.add(comment);
         }
     }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;");
-    // response.getWriter().print("Hello Gus!");
     response.getWriter().print(gson.toJson(comments));
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = request.getParameter("comment");
-    comments.add(comment);
-    storeComment(comment);
-    response.sendRedirect("/comment.html");
+    if(request.getServletPath().equalsIgnoreCase("/delete-data")){
+        deleteData();
+    } else {
+        addComment(request, response);
+    }
   }
 
-  private void storeComment(String comment){
+  private void deleteData(){
+      comments.clear();
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        Query query = new Query("Comment");//.addSort("timestamp", SortDirection.DESCENDING);
+        PreparedQuery results = datastore.prepare(query);
+        ArrayList<Key> keys = new ArrayList<>();
+        for (Entity entity : results.asIterable()) {
+            keys.add(entity.getKey());
+        }
+        datastore.delete(keys);
+}
+
+  private void addComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Comment comment;
+    if(request.getParameter("name").length()<1){
+        comment = new Comment(request.getParameter("comment"));
+    } else {
+        comment = new Comment(request.getParameter("name"),request.getParameter("comment"));
+    }
+    comments.add(0, comment);
+    storeComment(comment);
+    response.sendRedirect("/comment.html");
+}
+
+  private void storeComment(Comment comment){
     Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("comment", comment);
+    commentEntity.setProperty("commentName", comment.getName());
+    commentEntity.setProperty("commentText", comment.getText());
+    commentEntity.setProperty("commentDate", comment.getDate());
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
