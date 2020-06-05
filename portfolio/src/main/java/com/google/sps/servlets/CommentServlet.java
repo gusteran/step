@@ -15,6 +15,7 @@
 package com.google.sps.servlets;
 
 import com.google.sps.data.Comment;
+import com.google.sps.data.CommentList;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -36,12 +37,12 @@ import java.util.Date;
 )
 public class CommentServlet extends HttpServlet {
 
-    private ArrayList<Comment> comments;
+    private CommentList comments;
     private Gson gson = new Gson();
 
     @Override
     public void init(){
-        comments = new ArrayList<>();
+        comments = new CommentList();
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         Query query = new Query("Comment");//.addSort("timestamp", SortDirection.DESCENDING);
@@ -54,10 +55,16 @@ public class CommentServlet extends HttpServlet {
         }
     }
 
+    //responds with a comment list from the start of the comments of that page 
+    //to the end of that sublist of comments
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;");
-    response.getWriter().print(gson.toJson(comments));
+    int numComments = Integer.parseInt(request.getParameter("numComments"));
+    int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+    int start = numComments * (pageNum-1);
+    int end = numComments * pageNum;
+    response.getWriter().print(gson.toJson(comments.getSubList(start,end)));
   }
 
   @Override
@@ -88,7 +95,7 @@ public class CommentServlet extends HttpServlet {
     } else {
         comment = new Comment(request.getParameter("name"),request.getParameter("comment"));
     }
-    comments.add(0, comment);
+    comments.add(comment);
     storeComment(comment);
     response.sendRedirect("/comment.html");
 }

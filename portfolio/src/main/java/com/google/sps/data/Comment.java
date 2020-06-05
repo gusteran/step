@@ -1,6 +1,7 @@
 
 package com.google.sps.data;
 import java.util.Date;
+import java.util.ArrayList;
 
 public class Comment {
     private String name;

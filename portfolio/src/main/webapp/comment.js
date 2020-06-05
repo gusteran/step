@@ -27,30 +27,23 @@ function fetchComments(numComments){
 }
 
 function fetchCommentsPerPage(numComments, page) {
-    var totalComments = 0;
     document.getElementById('commentListContainer').innerHTML = "";
-	fetch('/comment').then(response => response.json()).then((comments) => {
-        for(i in comments){
-            // console.log(comments[i].text);
-            // console.log(i+" is between? "+(numComments * (page-1))+" and "+(numComments * page));
-            if(i < numComments * page && i >= numComments * (page-1)){
-                displayComment(comments[i]);
-            }
-            totalComments = i;
-            // console.log(totalComments);
-        }
-    var pageNum = 1;
-    var htmlStr = "Page ";
-    // console.log("Total Comment "+totalComments+" and page num "+pageNum);
     document.getElementById('pageContainer').innerHTML ="";
-    while(totalComments > 0){
-        // console.log("Total Comment "+totalComments+" and page num "+pageNum);
-        htmlStr += (pageNum === page) ? "<span class='page_number selected'" : "<span class='page_number'";
-        htmlStr += " onclick='fetchCommentsPerPage("+numComments+","+pageNum+");'>"+pageNum+"</span>";
-        pageNum++;
-        totalComments-=numComments;
-    }
-    document.getElementById('pageContainer').innerHTML += htmlStr;
+	fetch('/comment?numComments='+numComments+"&pageNum="+page).then(response => response.json()).then((commentsList) => {
+        var comments = commentsList.comments;
+        var totalComments = commentsList.numComments;
+        for(i in comments){
+            displayComment(comments[i]);
+        }
+        var pageNum = 1;
+        var htmlStr = "Page ";
+        while(totalComments > 0){
+            htmlStr += (pageNum === page) ? "<span class='page_number selected'" : "<span class='page_number'";
+            htmlStr += " onclick='fetchCommentsPerPage("+numComments+","+pageNum+");'>"+pageNum+"</span>";
+            pageNum++;
+            totalComments-=numComments;
+        }
+        document.getElementById('pageContainer').innerHTML += htmlStr;
 	});
 }
 
