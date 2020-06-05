@@ -15,21 +15,6 @@
 var numDescriptor = 0;
 var timeout = setTimeout(console.log("Hello"), 1);
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!', "RandomGreeting.exe"];
-
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
-}
-
 function addRandomFact() {
     const facts = 
         ['I am allergic to the allium family', 'I have backpacked over 400 miles', 
@@ -41,7 +26,7 @@ function addRandomFact() {
     factContainer.innerText = fact;
 }
 
-function setRandomStatus() {
+function setStatus() {
     const descriptors = ["Person","Hiker", "Coder", "Athlete"];
     const colors = ["darkgreen","red", "green", "blue"];
     numDescriptor++;
