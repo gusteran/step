@@ -1,13 +1,16 @@
 html, body {
     background-color:azure;
     font-family: 'Times New Roman', Times, serif;
+    min-height: 100vh;
+    position: relative;
 }
 
-#content {
+.content {
   margin-left: auto;
   margin-right: auto;
   max-width: 1080px;
   text-align: center;
+  padding-bottom: 50px;
   /* background-color: rgb(235, 245, 251); */
 }
 
@@ -84,6 +87,7 @@ p {
     text-align: left;
     padding: 10px;
     margin: 10px;
+    border-radius: 10px;
 }
 
 .comment h3 {
@@ -104,15 +108,27 @@ p {
     color: darkgrey;
 }
 
+.page_number {
+    padding: 14px;
+    color: grey;
+}
+
+.page_number.selected {
+    color: black;
+}
+
+.page_number:hover{
+    color: black;
+}
+
 .footer {
-    
+    margin: 5px;
+    height: 50px;
     text-align: center;
-    position: fixed;
+    position: absolute;
     bottom:0;
-    left:0;
     width:100vw;
     color: black;
-    padding: 15px 15px;
     font-size: 24px;
 }
 
@@ -129,3 +145,4 @@ p {
 @keyframes textscroll{
     from{width: 0px;}
     to{width: 100%;};
+}

@@ -7,8 +7,8 @@
     <script src="comment.js"></script>
   </head>
   <body onload="fetchComments(10)" >
-      <div id="content">
-        <form style="text-align:left;" action="/comment" method="POST" >
+      <div class="content">
+        <form style="text-align:left; padding: 50px;" action="/comment" method="POST" >
             <h2>Leave your comment here</h2>
             <input hidden name="purpose" value="add">
             <label for="name">Name: </label>
@@ -18,14 +18,13 @@
             <br>
             <input class="submit_button" type="submit">
         </form>
-        <div>
-            <h2>Comments</h2>
-            <button onclick="deleteComments();">Delete Comments!</button>
+        <div class="content">
+            <h2 style="margin-bottom: -20px;">Comments</h2>
             <form style="text-align:right;">
                 <input hidden name="purpose" value="view">
-                <select value="10" style="min-width=100px;" name="numComments" onchange="fetchComments(this.value);">
+                <select style="width: 50px; padding-left: 10px;" value="10" name="numComments" onchange="fetchComments(this.value);">
                     <option value="5">5</option>
-                    <option value="10">10</option>
+                    <option selected value="10">10</option>
                     <option value="20">20</option>
                     <option value="30">30</option>
                 </select>
@@ -33,5 +32,6 @@
             </form>
         </div>
       </div>
+      <div class="footer" id="pageContainer">Page </div>
   </body>
 </html>
