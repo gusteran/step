@@ -2,17 +2,44 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
     <script src="script.js"></script>
   </head>
   <body>
     <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+        <!-- <h1>Gus's Portfolio</h1> -->
+        <div style="height:20vh;"></div>
+        <div onmouseenter="setStatus()" onmouseleave="stopStatus()">
+            <img src="/images/me.jpeg" id="profile">
+            <h2>
+                <span>Hi, I'm Gus and I am a</span>
+                <span  id="descriptorContainer"></span>
+            </h2>
+        </div>
+        <div style="text-align: center; overflow: hidden;">
+            <div style="display: inline-block; overflow: hidden;">
+                <a class="icon" href="aboutme.html" onmouseover="setStatus(' Person', 'darkgreen')" onmouseleave="stopStatus()">
+                    <img src="/images/aboutme.png">
+                    <span>About Me</span>
+                </a>
+                <a class="icon" href="coding.html" onmouseover="setStatus(' Coder', 'red')" onmouseleave="stopStatus()">
+                    <img src="/images/coding.png">
+                    <span>Coding</span>
+                </a>
+            </div>
+            <div style="display: inline-block; overflow: hidden;">
+                <a class="icon" href="hiking.html" onmouseover="setStatus(' Hiker', 'green')" onmouseleave="stopStatus()">
+                    <img src="/images/hiking.png">
+                    <span>Hiking</span>
+                </a>
+                <a class="icon" href="sports.html" onmouseover="setStatus('n Athlete', 'blue')" onmouseleave="stopStatus()">
+                    <img src="/images/skiing.png">
+                    <span>Sports</span>
+                </a>
+            </div>
+        </div>
     </div>
   </body>
 </html>

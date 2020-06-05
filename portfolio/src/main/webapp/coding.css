@@ -1,0 +1,27 @@
+html, body {
+    margin: auto;
+    height:100%;
+    background-color:black;
+    color: white;
+    font-family: monospace
+}
+
+h1 {
+    color: greenyellow;
+    font-size: 48px;
+    margin: 48px 10vw;
+}
+h2 {
+    color: greenyellow;
+    font-size: 36px;
+    margin: 36px 10vw;
+}
+p {
+    font-size: 24px;
+    margin: 24px 5vw;
+}
+
+.code {
+    font-size: 14px;
+    margin: 0px 5vw;
+}

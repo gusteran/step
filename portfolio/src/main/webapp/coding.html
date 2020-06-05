@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My Coding</title>
+    <link rel="stylesheet" href="coding.css">
+  </head>
+  <body style="background-color:black;">
+    <span id="content">
+      <h1>My Coding Experience</h1>
+      <p> I started coding Junior year of High School in my AP CS class. 
+          I joined the class because my former soccer coach was the teacher 
+          but found a passion for coding.
+    </span>
+    <div>
+        <h2>This is the worst code I have ever written</h2>
+        <p>I keep this around as a reminder of how quickly poor coding
+            practices can spiral out of control (especially when tired). Surprisingly,
+            it actually did its job of animating an arrow navigating through a hospital kiosk
+            even cleanly across floors.
+        </p>
+        <pre class="code">
+            <code>
+/**
+* TODO this is the worst method I have ever written
+*
+* @param path
+*/
+public void playPath(ArrayList<HospitalNode> path) {
+    shape.setVisible(false);
+    //    Circle person = new Circle(0, 0, 10);
+    ArrayList<PathElement> edges = PathFinding.animation(path);
+    long timePassed = 500; // initial delay on animation
+    long transitionTime = 0;
+    Path currPath = new Path();
+    boolean first = true;
+    shape.setFill(circleColor);
+    shape.toFront();
+    for (int i = 0; i < path.size(); i++) {
+      //      if (path.get(i).getFloor() == floor) {
+      if (i == path.size() - 1 && path.get(i).getFloor() == floor
+          || i > 0
+              && path.get(i - 1).getFloor() != path.get(i).getFloor()
+              && path.get(i - 1).getFloor() == floor) {
+        if (i == path.size() - 1 && path.get(i).getFloor() == floor) {
+          currPath.getElements().add(new LineTo(path.get(i).getX(), path.get(i).getY()));
+          long thisTime = (long) (10.0 / speed * path.get(i - 1).distance(path.get(i)));
+          timePassed += thisTime;
+          transitionTime += thisTime;
+        } else if (currPath.getElements().size() < 2) {
+          currPath = new Path();
+          first = true;
+          int floor = path.get(i + 1).getFloor();
+          TimerTask task =
+              new TimerTask() {
+                @Override
+                public void run() {
+                  Platform.runLater(
+                      () -> {
+                        ((MapController) App.getMapLoader().getController()).changeFloor(floor);
+                      });
+                }
+              };
+          transitionTime += 50;
+          timePassed += transitionTime;
+          new Timer().schedule(task, timePassed);
+          continue;
+        }
+        PathTransition currTransition = new PathTransition();
+        currTransition.setPath(currPath);
+        // TODO: Correct image flipping upside-down during path animation
+        // currTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        currTransition.setDelay(Duration.millis(timePassed));
+        TimerTask showTimer =
+            new TimerTask() {
+              @Override
+              public void run() {
+                shape.setVisible(true);
+              }
+            };
+        Timer showT = new Timer();
+        showT.schedule(showTimer, 750);
+        timePassed += transitionTime;
+        currTransition.setDuration(Duration.millis(transitionTime));
+        currTransition.setInterpolator(Interpolator.EASE_BOTH);
+        currTransition.setNode(shape);
+        currTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        if (i < path.size() - 1) {
+          int nextFloor = path.get(i + 1).getFloor();
+          for (;
+              i < path.size() - 1
+                  && (path.get(i).getNodeType().equalsIgnoreCase("STAI")
+                      || path.get(i).getNodeType().equalsIgnoreCase("ELEV"));
+              i++) {
+            nextFloor = path.get(i).getFloor();
+          }
+          int finalFloor = nextFloor;
+          currTransition.setOnFinished(
+              e -> {
+                ((MapController) App.getMapLoader().getController()).changeFloor(finalFloor);
+              });
+        } else {
+          currTransition.setOnFinished(
+              e -> {
+                int floor = path.get(0).getFloor();
+                TimerTask task =
+                    new TimerTask() {
+                      @Override
+                      public void run() {
+                        Platform.runLater(
+                            () -> {
+                              ((MapController) App.getMapLoader().getController())
+                                  .changeFloor(floor);
+                            });
+                      }
+                    };
+                //                new Timer().schedule(task, leaveAnimationTime);
+              });
+        }
+        currTransition.playFromStart();
+        //        System.out.println("Path elements: " + currPath.getElements());
+        //        System.out.println("Current Transition: " + currTransition);
+        currPath = new Path();
+        first = true;
+      } else if (path.get(i).getFloor() == floor) {
+        if (first) {
+          currPath.getElements().add(new MoveTo(path.get(i).getX(), path.get(i).getY()));
+          shape.setTranslateX(path.get(i).getX());
+          shape.setTranslateY(path.get(i).getY());
+          first = false;
+        } else {
+          currPath.getElements().add(new LineTo(path.get(i).getX(), path.get(i).getY()));
+        }
+        long thisTime = 0;
+        if (i > 0) thisTime = (long) (10.0 / speed * path.get(i - 1).distance(path.get(i)));
+        //        timePassed += thisTime;
+        transitionTime += thisTime;
+      } else {
+        if (i > 0) timePassed += (long) (10.0 / speed * path.get(i - 1).distance(path.get(i)));
+      }
+      //      }
+    }
+    System.out.println("Remove shape after: " + (timePassed + leaveAnimationTime / 2) + " ms");
+    TimerTask task =
+        new TimerTask() {
+          @Override
+          public void run() {
+            Platform.runLater(
+                () -> {
+                  shape.setVisible(false);
+                });
+          }
+        };
+    new Timer().schedule(task, timePassed + leaveAnimationTime / 2);
+}
+            </code>
+        </pre>
+    </div>
+  </body>
+</html>

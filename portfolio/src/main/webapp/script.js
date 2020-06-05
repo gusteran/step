@@ -12,17 +12,45 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+var numDescriptor = 0;
+var timeout = setTimeout(console.log("Hello"), 1);
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+function addRandomFact() {
+    const facts = 
+        ['I am allergic to the allium family', 'I have backpacked over 400 miles', 
+        'My favorite sport is soccer'];
 
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+    const fact = facts[Math.floor(Math.random() * facts.length)];
+
+    const factContainer = document.getElementById('fact-container');
+    factContainer.innerText = fact;
+}
+
+function setStatus() {
+    const descriptors = ["Person","Hiker", "Coder", "Athlete"];
+    const colors = ["darkgreen","red", "green", "blue"];
+    numDescriptor++;
+    if(numDescriptor>=descriptors.length){
+        numDescriptor = 0;
+    }
+
+    const descriptorContainer = document.getElementById('descriptorContainer');
+    descriptorContainer.innerText = descriptors[numDescriptor];
+    descriptorContainer.style.color = colors[numDescriptor];
+    timeout = setTimeout(setRandomStatus, 1500);
+}
+
+function setStatus(status, color){
+    descriptorContainer.innerText = status;
+    descriptorContainer.style.color = color;
+    // descriptorContainer.style.fontFamily = "'Times New Roman', Times, serif";
+}
+
+/*
+Stops the carousel of descriptors and locks from reactivating for 1s
+*/
+function stopStatus() {
+    clearTimeout(timeout);
+    const descriptorContainer = document.getElementById('descriptorContainer');
+    descriptorContainer.innerText = "";
 }
