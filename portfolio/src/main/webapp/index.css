@@ -2,6 +2,7 @@ html, body {
     background-color:azure;
     font-family: 'Times New Roman', Times, serif;
     min-height: 100vh;
+    margin: 0;
     position: relative;
 }
 
@@ -47,6 +48,18 @@ html, body {
     display: block;
 }
 
+
+.profile img{
+    width:fit-content;
+    margin: 30px 30px;
+    padding: 20px 20px;
+    border: 20px 20px;
+}
+.profile {
+    float: right;
+    width:min-content;
+}
+
 h1 {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 60px;
@@ -64,7 +77,7 @@ h2 {
 
 p {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .input_text {
@@ -132,6 +145,39 @@ p {
     font-size: 24px;
 }
 
+.header {
+    overflow: auto;
+    width: 100vw;
+    padding: 10px 50px;
+    background: lavender;
+    color: darkblue;
+}
+
+.header h1 {
+    width: min-content;
+    text-align: center;
+    text-decoration: none;
+    margin: 0;
+    display: inline-block;
+    font-size: 36px;
+    padding: 15px;
+}
+
+.header h2 {
+    width: fit-content;
+    text-align: center;
+    text-decoration: none;
+    margin: 0;
+    display: inline-block;
+    font-size: 24px;
+    padding: 15px;
+}
+
+.header h1:hover,.header h2:hover {
+    color: black;
+    transform: translate(0, -5px);
+}
+
 .animateText {
     animation-name: textscroll;
     animation-duration: 1s;
@@ -145,4 +191,31 @@ p {
 @keyframes textscroll{
     from{width: 0px;}
     to{width: 100%;};
+}
+
+.coding {
+    margin: auto;
+    background-color:black;
+    color: white;
+    font-family: monospace
+}
+
+.coding h1 {
+    color: greenyellow;
+    font-size: 48px;
+    margin: 48px 10vw;
+}
+.coding h2 {
+    color: greenyellow;
+    font-size: 36px;
+    margin: 36px 10vw;
+}
+.coding p {
+    font-size: 24px;
+    margin: 24px 5vw;
+}
+
+.code {
+    font-size: 14px;
+    margin: 0px 5vw;
 }

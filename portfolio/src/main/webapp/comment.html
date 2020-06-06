@@ -6,25 +6,33 @@
     <link rel="stylesheet" href="index.css">
     <script src="comment.js"></script>
   </head>
-  <body onload="fetchComments(10)" >
+  <body onload="fetchComments(5)" >
+    <div class="header">
+        <a href="index.html"><h1>My Portfolio</h1></a>
+        <a href="aboutme.html"><h2>About Me</h2></a>
+        <a href="coding.html"><h2>Coding</h2></a>
+        <a href="hiking.html"><h2>Hiking</h2></a>
+        <a href="sports.html"><h2>Gallery</h2></a>
+        <a href="comment.html"><h2>Comments</h2></a>
+    </div>
       <div class="content">
-        <form style="text-align:left; padding: 50px;" action="/comment" method="POST" >
+        <form style="text-align:left; padding-left: 50px; padding-top: 20px;" action="/comment" method="POST" >
             <h2>Leave your comment here</h2>
             <input hidden name="purpose" value="add">
-            <label for="name">Name: </label>
-            <input name="name" type="text" autofocus>
+            <label for="name" style="margin-below: 15px;">Name: </label>
+            <input name="name" style="margin: 5px;" type="text" autofocus>
             <br>
             <textarea name="comment" type="text" cols="50" rows="5"></textarea>
             <br>
             <input class="submit_button" type="submit">
         </form>
-        <div class="content">
-            <h2 style="margin-bottom: -20px;">Comments</h2>
+        <div>
+            <h2 style="margin: -20px;">Comments</h2>
             <form style="text-align:right;">
                 <input hidden name="purpose" value="view">
-                <select style="width: 50px; padding-left: 10px;" value="10" name="numComments" onchange="fetchComments(this.value);">
-                    <option value="5">5</option>
-                    <option selected value="10">10</option>
+                <select style="width: 50px; padding-left: 10px;" value="5" name="numComments" onchange="fetchComments(this.value);">
+                    <option selected value="5">5</option>
+                    <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="30">30</option>
                 </select>
