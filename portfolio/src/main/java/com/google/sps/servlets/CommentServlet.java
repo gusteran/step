@@ -40,6 +40,8 @@ public class CommentServlet extends HttpServlet {
     private CommentList comments;
     private Gson gson = new Gson();
 
+    private static final String entityName = "Comment";
+
     private static final String nameProperty = "commentName";
     private static final String textProperty = "commentText";
     private static final String dateProperty = "commentDate";
@@ -52,7 +54,7 @@ public class CommentServlet extends HttpServlet {
         comments = new CommentList();
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        Query query = new Query("Comment");
+        Query query = new Query(entityName);
         PreparedQuery results = datastore.prepare(query);
         for (Entity entity : results.asIterable()) {
             Comment comment = new Comment(
@@ -89,7 +91,7 @@ public class CommentServlet extends HttpServlet {
   private void deleteData(){
       comments.clear();
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        Query query = new Query("Comment");//.addSort("timestamp", SortDirection.DESCENDING);
+        Query query = new Query(entityName);//.addSort("timestamp", SortDirection.DESCENDING);
         PreparedQuery results = datastore.prepare(query);
         ArrayList<Key> keys = new ArrayList<>();
         for (Entity entity : results.asIterable()) {
@@ -111,7 +113,7 @@ public class CommentServlet extends HttpServlet {
 }
 
   private void storeComment(Comment comment){
-    Entity commentEntity = new Entity("Comment");
+    Entity commentEntity = new Entity(entityName);
     commentEntity.setProperty(nameProperty, comment.getName());
     commentEntity.setProperty(textProperty, comment.getText());
     commentEntity.setProperty(dateProperty, comment.getDate());
