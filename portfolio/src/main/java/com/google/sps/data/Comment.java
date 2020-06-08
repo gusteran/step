@@ -8,6 +8,8 @@ public class Comment {
     private String text;
     private Date date;
 
+    private static final String noName = "Anonymous";
+
     public Comment(String name, String text, Date date){
         this.name = name;
         this.text = text;
@@ -21,7 +23,7 @@ public class Comment {
     }
 
     public Comment(String text){
-        this("Anonymous", text);
+        this(noName, text);
     }
 
     public String getName(){
