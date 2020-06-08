@@ -22,7 +22,6 @@ function addComment() {
 }
 
 function fetchComments(numComments){
-    console.log("page 1");
     fetchCommentsPerPage(numComments, 1);
 }
 
@@ -30,6 +29,7 @@ function fetchCommentsPerPage(numComments, page) {
     document.getElementById('commentListContainer').innerHTML = "";
     document.getElementById('pageContainer').innerHTML ="";
 	fetch('/comment?numComments='+numComments+"&pageNum="+page).then(response => response.json()).then((commentsList) => {
+        console.log(commentsList);
         var comments = commentsList.comments;
         var totalComments = commentsList.numComments;
         for(i in comments){
@@ -45,11 +45,6 @@ function fetchCommentsPerPage(numComments, page) {
         }
         document.getElementById('pageContainer').innerHTML += htmlStr;
 	});
-}
-
-function deleteComments() {
-    fetch("/delete-data", {method: "post"});
-    fetchComments(10);
 }
 
 /*

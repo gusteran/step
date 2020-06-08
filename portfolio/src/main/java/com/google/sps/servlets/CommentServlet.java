@@ -40,17 +40,27 @@ public class CommentServlet extends HttpServlet {
     private CommentList comments;
     private Gson gson = new Gson();
 
+    private static final String entityName = "Comment";
+
+    private static final String nameProperty = "commentName";
+    private static final String textProperty = "commentText";
+    private static final String dateProperty = "commentDate";
+
+    private static final String numCommentsParamter = "numComments";
+    private static final String pageNumParameter = "pageNum";
+
     @Override
     public void init(){
         comments = new CommentList();
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        Query query = new Query("Comment");//.addSort("timestamp", SortDirection.DESCENDING);
+        Query query = new Query(entityName);
         PreparedQuery results = datastore.prepare(query);
         for (Entity entity : results.asIterable()) {
-            Comment comment = new Comment(entity.getProperty("commentName").toString(),
-                entity.getProperty("commentText").toString(),
-                (Date)entity.getProperty("commentDate"));
+            Comment comment = new Comment(
+                entity.getProperty(nameProperty).toString(),
+                entity.getProperty(textProperty).toString(),
+                (Date)entity.getProperty(dateProperty));
             comments.add(comment);
         }
     }
@@ -60,11 +70,11 @@ public class CommentServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;");
-    int numComments = Integer.parseInt(request.getParameter("numComments"));
-    int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+    int numComments = Integer.parseInt(request.getParameter(numCommentsParamter));
+    int pageNum = Integer.parseInt(request.getParameter(pageNumParameter));
     int start = numComments * (pageNum-1);
     int end = numComments * pageNum;
-    response.getWriter().print(gson.toJson(comments.getSubList(start,end)));
+    response.getWriter().print(formSubListJson(comments, start, end));
   }
 
   @Override
@@ -74,12 +84,13 @@ public class CommentServlet extends HttpServlet {
     } else {
         addComment(request, response);
     }
+    response.sendRedirect("/comment.html");
   }
 
   private void deleteData(){
       comments.clear();
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        Query query = new Query("Comment");//.addSort("timestamp", SortDirection.DESCENDING);
+        Query query = new Query(entityName);//.addSort("timestamp", SortDirection.DESCENDING);
         PreparedQuery results = datastore.prepare(query);
         ArrayList<Key> keys = new ArrayList<>();
         for (Entity entity : results.asIterable()) {
@@ -97,16 +108,23 @@ public class CommentServlet extends HttpServlet {
     }
     comments.add(comment);
     storeComment(comment);
-    response.sendRedirect("/comment.html");
 }
 
   private void storeComment(Comment comment){
-    Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("commentName", comment.getName());
-    commentEntity.setProperty("commentText", comment.getText());
-    commentEntity.setProperty("commentDate", comment.getDate());
+    Entity commentEntity = new Entity(entityName);
+    commentEntity.setProperty(nameProperty, comment.getName());
+    commentEntity.setProperty(textProperty, comment.getText());
+    commentEntity.setProperty(dateProperty, comment.getDate());
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
+  }
+
+  private String formSubListJson(CommentList commentList, int start, int end){
+      String json = "{";
+      json+= " \"numComments\": " + commentList.getTotalComments() + ",";
+      json+= " \"comments\":"+gson.toJson(commentList.getSubList(start, end));
+      json+="}";
+      return json;
   }
 }

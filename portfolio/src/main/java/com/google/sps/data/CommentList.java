@@ -8,17 +8,9 @@ import java.util.List;
 public class CommentList{
 
     private ArrayList<Comment> comments;
-    private int numComments; //used for gson purposes
 
     public CommentList(){
         comments = new ArrayList<Comment>();
-        numComments = 0;
-    }
-
-    private CommentList(List<Comment> comments, int numComments){
-        this.comments = new ArrayList<Comment>();
-        this.comments.addAll(comments);
-        this.numComments = numComments;
     }
 
     public void add(Comment comment){
@@ -26,15 +18,18 @@ public class CommentList{
         for(; i < comments.size() && 
             comment.getDate().compareTo(comments.get(i).getDate()) < 0; i++);
         comments.add(i, comment);
-        numComments = comments.size();
     }
 
     public void clear(){
         comments.clear();
     }
 
-    public CommentList getSubList(int start, int end){
-        if(end > numComments) end = numComments;
-        return new CommentList(comments.subList(start, end), numComments);
+    public List<Comment> getSubList(int start, int end){
+        if(end > comments.size()) end = comments.size();
+        return comments.subList(start, end);
+    }
+
+    public int getTotalComments(){
+        return comments.size();
     }
 }
