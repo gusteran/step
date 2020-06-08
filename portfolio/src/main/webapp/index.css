@@ -219,3 +219,11 @@ p {
     font-size: 14px;
     margin: 0px 5vw;
 }
+
+.bigimg {
+    background-image: url("/images/katahdin.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
