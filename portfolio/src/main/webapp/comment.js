@@ -47,11 +47,6 @@ function fetchCommentsPerPage(numComments, page) {
 	});
 }
 
-function deleteComments() {
-    fetch("/delete-data", {method: "post"});
-    fetchComments(10);
-}
-
 /*
 prevent user from writing html content by first creating the html to hold the comment
 then adding the parts of the comment as inner text to the html elements

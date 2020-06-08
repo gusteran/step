@@ -74,8 +74,6 @@ public class CommentServlet extends HttpServlet {
     int pageNum = Integer.parseInt(request.getParameter(pageNumParameter));
     int start = numComments * (pageNum-1);
     int end = numComments * pageNum;
-    // response.getWriter().println(gson.toJson(20));
-    // response.getWriter().print(gson.toJson(comments.getSubList(start,end)));
     response.getWriter().print(formSubListJson(comments, start, end));
   }
 
@@ -86,6 +84,7 @@ public class CommentServlet extends HttpServlet {
     } else {
         addComment(request, response);
     }
+    response.sendRedirect("/comment.html");
   }
 
   private void deleteData(){
@@ -109,7 +108,6 @@ public class CommentServlet extends HttpServlet {
     }
     comments.add(comment);
     storeComment(comment);
-    response.sendRedirect("/comment.html");
 }
 
   private void storeComment(Comment comment){
