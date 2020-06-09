@@ -227,3 +227,7 @@ p {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+#map {
+    height: 50%;
+}
