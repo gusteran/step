@@ -38,12 +38,18 @@ function setStatus() {
     descriptorContainer.innerText = descriptors[numDescriptor];
     descriptorContainer.style.color = colors[numDescriptor];
     timeout = setTimeout(setRandomStatus, 1500);
+    _resetStatusAnimation();
 }
 
 function setStatus(status, color){
     descriptorContainer.innerText = status;
     descriptorContainer.style.color = color;
-    // descriptorContainer.style.fontFamily = "'Times New Roman', Times, serif";
+    _resetStatusAnimation();
+}
+
+function _resetStatusAnimation(){
+    descriptorContainer.style.animation = "none";
+    setTimeout(()=>descriptorContainer.style.animation = null, 5);
 }
 
 /*

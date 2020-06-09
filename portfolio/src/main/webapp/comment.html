@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My Coding</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="comment.js"></script>
+  </head>
+  <body onload="fetchComments(10)" >
+      <div class="content">
+        <form style="text-align:left; padding: 50px;" action="/comment" method="POST" >
+            <h2>Leave your comment here</h2>
+            <input hidden name="purpose" value="add">
+            <label for="name">Name: </label>
+            <input name="name" type="text" autofocus>
+            <br>
+            <textarea name="comment" type="text" cols="50" rows="5"></textarea>
+            <br>
+            <input class="submit_button" type="submit">
+        </form>
+        <div class="content">
+            <h2 style="margin-bottom: -20px;">Comments</h2>
+            <form style="text-align:right;">
+                <input hidden name="purpose" value="view">
+                <select style="width: 50px; padding-left: 10px;" value="10" name="numComments" onchange="fetchComments(this.value);">
+                    <option value="5">5</option>
+                    <option selected value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select>
+                <div id="commentListContainer"></div>
+            </form>
+        </div>
+      </div>
+      <div class="footer" id="pageContainer">Page </div>
+  </body>
+</html>
