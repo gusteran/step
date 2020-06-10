@@ -230,4 +230,6 @@ p {
 
 #map {
     height: 50%;
+    min-height:600px;
+    min-width: 600px;
 }
