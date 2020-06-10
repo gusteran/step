@@ -25,11 +25,14 @@ public class SuperfundServlet extends HttpServlet {
 
     private ArrayList<SuperfundSite> sites;
 
+    //this is the url to the tab seperated sheet of all the superfund sites
+    private static final String superfundSitesSheet = "/WEB-INF/superfund.tsv";
+
     @Override
     public void init() {
         sites = new ArrayList<>();
 
-        Scanner scanner = new Scanner(getServletContext().getResourceAsStream("/WEB-INF/superfund.tsv"));
+        Scanner scanner = new Scanner(getServletContext().getResourceAsStream(superfundSitesSheet));
         scanner.nextLine();
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
