@@ -13,7 +13,7 @@
 // limitations under the License.
 
 var numDescriptor = 0;
-var timeout = setTimeout(console.log("Hello"), 1);
+var timeout;
 
 function addRandomFact() {
     const facts = 
@@ -26,7 +26,7 @@ function addRandomFact() {
     factContainer.innerText = fact;
 }
 
-function setStatus() {
+function setRotatingStatus() {
     const descriptors = ["Person","Hiker", "Coder", "Athlete"];
     const colors = ["darkgreen","red", "green", "blue"];
     numDescriptor++;
@@ -37,7 +37,7 @@ function setStatus() {
     const descriptorContainer = document.getElementById('descriptorContainer');
     descriptorContainer.innerText = descriptors[numDescriptor];
     descriptorContainer.style.color = colors[numDescriptor];
-    timeout = setTimeout(setRandomStatus, 1500);
+    timeout = setTimeout(setRotatingStatus, 1500);
     _resetStatusAnimation();
 }
 
