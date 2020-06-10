@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html style="height:100vh;">
+  <head>
+    <meta charset="UTF-8">
+    <title>My Sports</title>
+    <link rel="stylesheet" href="index.css">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDe3E6CrVk-rkY22-r4rS4Y97fhCuZkgOY&callback=initMap"
+  type="text/javascript"></script>
+    <script src="map.js"></script>
+  </head>
+  <body  onload="initMap();" style="height:100vh">
+    <div class="header">
+        <a href="index.html"><h1>My Portfolio</h1></a>
+        <a href="aboutme.html"><h2>About Me</h2></a>
+        <a href="coding.html"><h2>Coding</h2></a>
+        <a href="hiking.html"><h2>Hiking</h2></a>
+        <a href="environment.html"><h2>Environmental Research</h2></a>
+        <a href="comment.html"><h2>Comments</h2></a>
+    </div>
+    <div class="content">
+        <h1>Superfund Sites</h1>
+        <p>As someone who loves the outdoors, protecting the environment has always
+            been important to me. As such, I was surprised to find out that I had a 
+            Superfund Site right in my backyard. A superfund site is a highly contaminated
+            and polluted site deemed to be risky to human health by the EPA.
+        </p>
+        <p>With this map you can look at all ~1700 Superfund Sites in the United States. 
+            The data for this page can be found <a href="https://www.epa.gov/superfund/national-priorities-list-npl-sites-state">
+            here</a>.
+        </p>
+        <div id="map"></div>
+    </div>
+  </body>
+</html>
