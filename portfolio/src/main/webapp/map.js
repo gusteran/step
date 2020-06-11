@@ -1,3 +1,5 @@
+google.charts.load('current', {packages: ['corechart']});
+google.charts.setOnLoadCallback(drawChart);
 
 var map;
 function initMap() {
@@ -8,8 +10,9 @@ function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-fetch('/superfund').then(response => response.json()).then((sites) => {
+  fetch('/superfund').then(response => response.json()).then((sites) => {
     sites.forEach((site) => {
+
       var marker = new google.maps.Marker(
 				{position: {lat: site.lattitude, lng: site.longitude}, 
 				title: site.name,
@@ -39,5 +42,27 @@ function iconUrl(score){
 	else url +="red";
 	url += "-dot.png";
 	return url;
+}
+
+function drawChart(){
+fetch('/superfund').then(response => response.json()).then((sites) => {
+    
+    var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Name');
+      data.addColumn('number', 'Hazard Score');
+
+    sites.forEach((site) => {
+        data.addRow([site.name, site.score]);});
+
+        var options = {
+            title: 'Superfund Hazard Scores',
+            label: 'Superfund Sites',
+            legend: { position: 'none' },
+            colors: ['green', 'yellow','orange','red'],
+        };
+      var chart = new google.visualization.Histogram(document.getElementById('myPieChart'));
+      chart.draw(data, options);
+});
+
 }
 
