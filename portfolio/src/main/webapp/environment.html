@@ -2,14 +2,14 @@
 <html style="height:100vh;">
   <head>
     <meta charset="UTF-8">
-    <title>My Sports</title>
+    <title>Environmental Research</title>
     <link rel="stylesheet" href="index.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDe3E6CrVk-rkY22-r4rS4Y97fhCuZkgOY&callback=initMap"
   type="text/javascript"></script>
     <script src="map.js"></script>
   </head>
-  <body  onload="initMap();" style="height:100vh">
+  <body  onload="loadData();" style="height:100vh">
     <div class="header">
         <a href="index.html"><h1>My Portfolio</h1></a>
         <a href="aboutme.html"><h2>About Me</h2></a>
@@ -25,12 +25,17 @@
             Superfund Site right in my backyard. A superfund site is a highly contaminated
             and polluted site deemed to be risky to human health by the EPA.
         </p>
-        <p>With this map you can look at all ~1700 Superfund Sites in the United States. 
+        <p>With this map you can look at all ~1800 Superfund Sites in the United States. 
             The data for this page can be found <a href="https://www.epa.gov/superfund/national-priorities-list-npl-sites-state">
             here</a>.
         </p>
+        <p>
+            Additionally, there are blue circles that represent the population served by
+            a water system with known contaminants.
+        </p>
         <div id="map"></div>
         <div id="myPieChart"></div>
+        <div id="barGraph"></div>
     </div>
   </body>
 </html>
